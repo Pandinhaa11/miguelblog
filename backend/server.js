@@ -4,6 +4,13 @@ import { Server } from "socket.io";
 import fs from "fs";
 import path from "path";
 import cors from "cors";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+
 
 const app = express();
 const server = http.createServer(app);
@@ -17,8 +24,7 @@ app.use(cors());
 app.use(express.json());
 
 // Servir frontend automaticamente
-app.use(express.static(path.join(process.cwd(), "frontend")));
-
+app.use(express.static(path.join(__dirname, "../public")));
 // Função utilitária pra ler/escrever posts
 function getPosts() {
   return JSON.parse(fs.readFileSync(postsFile, "utf-8"));
