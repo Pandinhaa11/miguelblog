@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // Servir frontend automaticamente
-app.use(express.static(path.join(process.cwd(), "public")));
+app.use(express.static(path.join(process.cwd(), "frontend")));
 
 // Função utilitária pra ler/escrever posts
 function getPosts() {
