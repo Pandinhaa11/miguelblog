@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Realtime</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Blog com Comentários em Tempo Real</h1>
+
+  <section id="newPost">
+    <input id="author" placeholder="Seu nome">
+    <textarea id="content" placeholder="Escreva seu post"></textarea>
+    <button onclick="sendPost()">Postar</button>
+  </section>
+
+  <h2>Posts</h2>
+  <div id="posts"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
