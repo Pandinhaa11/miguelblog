@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": 1757797956555,
+    "author": "primeiro post de testes",
+    "content": "olá!",
+    "comments": [
+      {
+        "id": 1757797971255,
+        "author": "primeiro usuario de testes",
+        "content": "oi!"
+      },
+      {
+        "id": 1757797993117,
+        "author": "segundo usuario de testes",
+        "content": "bem vindooo!!!!"
+      }
+    ]
+  }
+]
