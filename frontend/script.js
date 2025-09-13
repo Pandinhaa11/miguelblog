@@ -1,7 +1,8 @@
-const socket = io("http://localhost:3000");
+const socket = io();
 
+// Carregar posts
 async function loadPosts() {
-  const res = await fetch("http://localhost:3000/posts");
+  const res = await fetch("/api/posts");
   const posts = await res.json();
   renderPosts(posts);
 }
@@ -31,11 +32,13 @@ async function sendPost() {
   const content = document.getElementById("content").value;
   if (!author || !content) return;
 
-  await fetch("http://localhost:3000/posts", {
+  await fetch("/api/posts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ author, content })
   });
+
+  document.getElementById("content").value = "";
 }
 
 async function sendComment(postId) {
@@ -43,20 +46,18 @@ async function sendComment(postId) {
   const content = document.getElementById(`comment-${postId}`).value;
   if (!author || !content) return;
 
-  await fetch(`http://localhost:3000/posts/${postId}/comments`, {
+  await fetch(`/api/posts/${postId}/comments`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ author, content })
   });
+
+  document.getElementById(`comment-${postId}`).value = "";
 }
 
-// Realtime updates
-socket.on("newPost", post => {
-  loadPosts();
-});
+// Atualizações em tempo real
+socket.on("newPost", () => loadPosts());
+socket.on("newComment", () => loadPosts());
 
-socket.on("newComment", data => {
-  loadPosts();
-});
-
+// Início
 loadPosts();
