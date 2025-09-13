@@ -14,9 +14,11 @@ const io = new Server(server, {
 const PORT = 3000;
 const postsFile = path.join(process.cwd(), "backend", "posts.json");
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(process.cwd(), "frontend")));
 
 // Rota para pegar posts
 app.get("/posts", (req, res) => {
