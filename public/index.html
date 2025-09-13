@@ -8,9 +8,38 @@
 </head>
 <body>
   <div class="container">
-    <h1>Bem-vindo 🚀</h1>
-    <p>Gerencie seus usuários aqui.</p>
-    <button onclick="alert('Em breve: cadastro de usuários!')">Cadastrar Usuário</button>
+    <h1>Cadastro de Usuário 🚀</h1>
+    <form id="registerForm">
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="tel" id="telefone" placeholder="+55 (11) 9XXXX-XXXX" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p id="msg"></p>
   </div>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const senha = document.getElementById("senha").value;
+      const telefone = document.getElementById("telefone").value;
+
+      const response = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, senha, telefone })
+      });
+
+      const data = await response.json();
+      msg.textContent = data.message;
+      msg.style.color = response.ok ? "lightgreen" : "red";
+      form.reset();
+    });
+  </script>
 </body>
 </html>

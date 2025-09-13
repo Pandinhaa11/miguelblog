@@ -86,6 +86,31 @@ app.post("/api/posts/:id/comments", (req, res) => {
   res.json(newComment);
 });
 
+app.post("/register", (req, res) => {
+  const { nome, senha, telefone } = req.body;
+
+  if (!nome || !senha || !telefone) {
+    return res.status(400).json({ message: "Preencha todos os campos!" });
+  }
+
+  let users = [];
+  if (fs.existsSync(usersFile)) {
+    users = JSON.parse(fs.readFileSync(usersFile));
+  }
+
+  // Verifica se já existe
+  const existe = users.find(u => u.nome === nome);
+  if (existe) {
+    return res.status(400).json({ message: "Usuário já existe!" });
+  }
+
+  // Salva novo usuário
+  users.push({ nome, senha, telefone });
+  fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+
+  res.json({ message: "Usuário cadastrado com sucesso!" });
+});
+
 // Socket.io
 io.on("connection", socket => {
   console.log("🔌 Usuário conectado:", socket.id);
